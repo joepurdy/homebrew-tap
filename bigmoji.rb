@@ -5,45 +5,45 @@
 class Bigmoji < Formula
   desc "A helper utility for slicing PNGs into 4x4 grids for Slack Bigmojis."
   homepage "https://github.com/joepurdy/bigmoji/"
-  version "0.0.1"
+  version "1.0.0"
   license "MIT"
 
   on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/joepurdy/bigmoji/releases/download/v0.0.1/bigmoji_0.0.1_macOS_arm64.tar.gz"
-      sha256 "b8d19db3cc151ddbbe436a46af91517faafdaf182136e77c155120afd59e7b93"
+    url "https://github.com/joepurdy/bigmoji/releases/download/v1.0.0/bigmoji_Darwin_all.tar.gz"
+    sha256 "2a9edf704233e7a640e01ed4ab68ac288b6c0bde1b762bc3c1f9b93daef14a6e"
 
-      def install
-        bin.install "bigmoji"
-      end
-    end
-    if Hardware::CPU.intel?
-      url "https://github.com/joepurdy/bigmoji/releases/download/v0.0.1/bigmoji_0.0.1_macOS_x86_64.tar.gz"
-      sha256 "adf922245df1a5218025b3641aa6b9d80a96df2dc587ff2d6cc26fea1e659ab7"
-
-      def install
-        bin.install "bigmoji"
-      end
+    def install
+      bin.install "bigmoji"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/joepurdy/bigmoji/releases/download/v0.0.1/bigmoji_0.0.1_linux_x86_64.tar.gz"
-      sha256 "556fbb8c28097a3f3adaaa63a3267153081ed4bbe67253d3a87e922847fd25c1"
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/joepurdy/bigmoji/releases/download/v1.0.0/bigmoji_Linux_x86_64.tar.gz"
+        sha256 "762e73fa029565df7f6e21915c68bd78892951f3c14691838232e756d109b8d2"
 
-      def install
-        bin.install "bigmoji"
+        def install
+          bin.install "bigmoji"
+        end
       end
     end
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/joepurdy/bigmoji/releases/download/v0.0.1/bigmoji_0.0.1_linux_arm64.tar.gz"
-      sha256 "48dba849383ad4dfab172d5ab4378a3d36fcac15d1f5b16d6163deffeb25bb02"
+    if Hardware::CPU.arm?
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/joepurdy/bigmoji/releases/download/v1.0.0/bigmoji_Linux_arm64.tar.gz"
+        sha256 "83e0bbaa3f66e8eca85ceb513ec9a7b6027f304ca13c2a4fee4e5a0fac233cb1"
 
-      def install
-        bin.install "bigmoji"
+        def install
+          bin.install "bigmoji"
+        end
       end
     end
+  end
+
+  def caveats
+    <<~EOS
+      You can now use bigmoji to create Slack Bigmojis!
+    EOS
   end
 
   test do
